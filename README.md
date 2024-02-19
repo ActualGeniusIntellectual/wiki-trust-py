@@ -20,7 +20,7 @@ WikiBiasTracker is an advanced research tool designed to analyze and track the e
 - Flask for the web dashboard (optional)
 
 ### Setup
-1. **Clone the Repository**: `git clone https://github.com/yourusername/WikiBiasTracker.git`
+1. **Clone the Repository**: `git clone https://github.com/yourusername/wiki-trust-py.git`
 2. **Install Dependencies**: Run `pip install -r requirements.txt` to install the required Python libraries.
 3. **Database Setup**: Use SQLite to set up your database according to the provided schema.
 4. **Run the Application**: Execute `python main.py` to start the application.
