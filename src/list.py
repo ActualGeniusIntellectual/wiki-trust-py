@@ -360,7 +360,7 @@ POLITICAL_IDEOLOGIES2 = [
     'Progressivism',
     'Reformism',
     'Regionalism',
-    'Republicanism_Classical',
+    'Republicanism',
     'Modern',
     'Rightism',
     'Royalism',
