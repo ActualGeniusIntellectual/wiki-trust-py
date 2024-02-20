@@ -46,8 +46,8 @@ def save_revisions(revisions, page_title):
             if rev['user'].get('id'):
                 user_id = rev['user']['id']
             
-            if rev['user'].get('username'):
-                username = rev['user']['username']
+            if rev['user'].get('name'):
+                username = rev['user']['name']
 
         cursor.execute('''
             INSERT OR IGNORE INTO revisions (id, page, timestamp, minor, size, comment, delta, user_id, username)
