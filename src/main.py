@@ -3,7 +3,7 @@ import requests
 import sqlite3
 
 # Set up logging
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Constants
 WIKI_API_URL = "https://en.wikipedia.org/w/api.php"
@@ -91,7 +91,7 @@ def fetch_and_store_revisions():
                     break
             logging.info(f'All new revisions for {page_title} have been fetched and stored.')
         else:
-            logging.info(f'No new revisions to fetch for {page_title}.')
+            logging.debug(f'No new revisions to fetch for {page_title}.')
 
 if __name__ == '__main__':
     fetch_and_store_revisions()
