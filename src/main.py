@@ -39,6 +39,16 @@ def get_revision_count(page_title):
 # Save revisions to the database
 def save_revisions(revisions, page_title):
     for rev in revisions:
+        user_id = None
+        username = None
+
+        if rev.get('user'):
+            if rev['user'].get('id'):
+                user_id = rev['user']['id']
+            
+            if rev['user'].get('username'):
+                username = rev['user']['username']
+
         cursor.execute('''
             INSERT OR IGNORE INTO revisions (id, page, timestamp, minor, size, comment, delta, user_id, username)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -50,8 +60,8 @@ def save_revisions(revisions, page_title):
             rev.get('size'),
             rev.get('comment'),
             rev.get('delta'),
-            rev.get('user').get('id'),
-            rev.get('user').get('name'),
+            user_id,
+            username,
         ))
     conn.commit()
     logging.debug(f"{len(revisions)} revisions for {page_title} stored in the database.")
