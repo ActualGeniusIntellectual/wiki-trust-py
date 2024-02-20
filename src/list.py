@@ -527,7 +527,6 @@ COMMUNISTS = [
     'Marie_Reine_Guindorf',
     'Marie_Sophie_Schwartz',
     'Marie_Therese_Fossey',
-    'Marie_Therese_Lihou',
     'Marie_Therese_Morin',
 ]
 
