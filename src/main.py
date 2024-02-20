@@ -3,7 +3,7 @@ import requests
 import sqlite3
 
 # Set up logging
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Import page titles from list.py
 from list import PAGE_TITLES
@@ -85,7 +85,7 @@ def fetch_and_store_revisions():
             while 'older' in data:
                 # Check the stored count after each iteration
                 stored_revisions_count = cursor.execute('SELECT COUNT(*) FROM revisions WHERE page = ?', (page_title,)).fetchone()[0]
-                logging.debug(f'{page_title}: {stored_revisions_count}/{api_revisions_count}')
+                logging.info(f'{page_title}: {stored_revisions_count}/{api_revisions_count}')
 
                 if stored_revisions_count >= api_revisions_count:
                     logging.info(f'Stored count matches API count for {page_title}. Leaving loop early.')
