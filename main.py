@@ -3,11 +3,22 @@ import requests
 import sqlite3
 
 # Set up logging
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Constants
 WIKI_API_URL = "https://en.wikipedia.org/w/api.php"
-PAGE_TITLES = ["Python_(programming_language)", "Java_(programming_language)", "C++"]  # Example list of Wikipedia pages
+PAGE_TITLES = [
+    "Israeli–Palestinian_conflict",
+    "Kashmir_conflict",
+    "Taiwan_Strait_Crisis",
+    "Ukraine-Russia_Conflict",
+    "North_Korea_and_Nuclear_Weapons",
+    "Hong_Kong_Protests",
+    "Brexit",
+    "Climate_Change_Policy",
+    "United_States_Immigration_Policy",
+    "Syrian_Civil_War"
+]
 
 # Database setup
 conn = sqlite3.connect('revisions.db')
@@ -51,7 +62,7 @@ def fetch_and_store_revisions():
         api_revisions_count = get_revision_count(page_title)
 
         if stored_revisions_count < api_revisions_count:
-            logging.info(f'New revisions found for {page_title}. Fetching and storing...')
+            logging.info(f'{page_title}. Stored: {stored_revisions_count} API: {api_revisions_count}. Fetching new revisions.')
             params = {
                 'action': 'query',
                 'format': 'json',
