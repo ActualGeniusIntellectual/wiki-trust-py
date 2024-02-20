@@ -380,6 +380,62 @@ POLITICAL_IDEOLOGIES2 = [
     'Zionism'
 ]
 
+# List of types of government with space converted to underscore
+TYPES_OF_GOVERNMENT = [
+    "Anarchy",
+    "Aristocracy",
+    "Autocracy",
+    "Bureaucracy",
+    "Democracy",
+    "Despotism",
+    "Dictatorship",
+    "Feudalism",
+    "Kleptocracy",
+    "Meritocracy",
+    "Monarchy",
+    "Oligarchy",
+    "Plutocracy",
+    "Republic",
+    "Socialism",
+    "Theocracy",
+    "Totalitarianism"
+]
+
+TYPES_OF_GOVERNMENT2 = [
+    'Anarchy',
+    'Aristocracy',
+    'Authoritarianism',
+    'Bureaucracy',
+    'Capitalism',
+    'Confederation',
+    'Colonialism',
+    'Communism',
+    'Corporatocracy',
+    'Democracy',
+    'Electocracy',
+    'Ergatocracy',
+    'Fascism',
+    'Federalism',
+    'Feudalism',
+    'Geniocracy',
+    'Imperialism',
+    'Kakistocracy',
+    'Kleptocracy',
+    'Logocracy',
+    'Meritocracy',
+    'Military Dictatorship',
+    'Monarchy',
+    'Oligarchy',
+    'Plutocracy',
+    'Republicanism',
+    'Socialism',
+    'Statism',
+    'Technocracy',
+    'Theocracy',
+    'Totalitarianism',
+    'Tribalism'
+]
+
 
 # List of list of page titles
 lists = [
@@ -390,7 +446,9 @@ lists = [
     PHILOSOPHERS,
     LATIN_AMERICAN_COUNTRIES,
     POLITICAL_IDEOLOGIES,
-    POLITICAL_IDEOLOGIES2
+    POLITICAL_IDEOLOGIES2,
+    TYPES_OF_GOVERNMENT,
+    TYPES_OF_GOVERNMENT2
 ]
 
 # Add the presidents to the list of page titles
