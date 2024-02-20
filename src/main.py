@@ -64,7 +64,6 @@ def save_revisions(revisions, page_title):
             username,
         ))
     conn.commit()
-    logging.debug(f"{len(revisions)} revisions for {page_title} stored in the database.")
 
 def fetch_and_store_revisions():
     for page_title in PAGE_TITLES:
@@ -84,6 +83,14 @@ def fetch_and_store_revisions():
             save_revisions(revisions, page_title)
 
             while 'older' in data:
+                # Check the stored count after each iteration
+                stored_revisions_count = cursor.execute('SELECT COUNT(*) FROM revisions WHERE page = ?', (page_title,)).fetchone()[0]
+                logging.debug(f'Stored count: {stored_revisions_count} API count: {api_revisions_count}')
+
+                if stored_revisions_count >= api_revisions_count:
+                    logging.info(f'Stored count matches API count for {page_title}. Leaving loop early.')
+                    break
+
                 response = requests.get(data['older'])
                 data = response.json()
                 revisions = data.get('revisions')
