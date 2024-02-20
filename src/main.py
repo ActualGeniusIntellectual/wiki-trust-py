@@ -5,60 +5,11 @@ import sqlite3
 # Set up logging
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# List of US presidents with spaces replaced by underscores
-PRESIDENTS = [
-    "George_Washington",
-    "John_Adams",
-    "Thomas_Jefferson",
-    "James_Madison",
-    "James_Monroe",
-    "John_Quincy_Adams",
-    "Andrew_Jackson",
-    "Martin_Van_Buren",
-    "William_Henry_Harrison",
-    "John_Tyler",
-    "James_K._Polk",
-    "Zachary_Taylor",
-    "Millard_Fillmore",
-    "Franklin_Pierce",
-    "James_Buchanan",
-    "Abraham_Lincoln",
-    "Andrew_Johnson",
-    "Ulysses_S._Grant",
-    "Rutherford_B._Hayes",
-    "James_A._Garfield",
-    "Chester_A._Arthur",
-    "Grover_Cleveland",
-    "Benjamin_Harrison",
-    "William_McKinley",
-    "Theodore_Roosevelt",
-    "William_Howard_Taft",
-    "Woodrow_Wilson",
-    "Warren_G._Harding",
-    "Calvin_Coolidge",
-    "Herbert_Hoover",
-    "Franklin_D._Roosevelt",
-    "Harry_S._Truman",
-    "Dwight_D._Eisenhower",
-    "John_F._Kennedy",
-    "Lyndon_B._Johnson",
-    "Richard_Nixon",
-    "Gerald_Ford",
-    "Jimmy_Carter",
-    "Ronald_Reagan",
-    "George_H._W._Bush",
-    "Bill_Clinton",
-    "George_W._Bush",
-    "Barack_Obama",
-    "Donald_Trump",
-    "Joe_Biden"
-]
-
 # Constants
 WIKI_API_URL = "https://en.wikipedia.org/w/api.php"
 
-# Add the presidents to the list of page titles
-PAGE_TITLES = [] + PRESIDENTS
+# Import page titles from list.py
+from list import PAGE_TITLES
 
 # Database setup
 conn = sqlite3.connect('revisions.db')
