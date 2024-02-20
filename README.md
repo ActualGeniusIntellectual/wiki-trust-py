@@ -3,6 +3,10 @@
 ## Overview
 WikiBiasTracker is an advanced research tool designed to analyze and track the evolution of Wikipedia articles, with a focus on understanding potential political biases in their revisions. This tool extracts revisions of Wikipedia articles, identifies contributors, and reconstructs article versions at different points in time. The end goal is to develop a web dashboard that allows users to visually explore these revisions, understand contribution patterns, and analyze potential biases of contributors.
 
+### DoltHub
+
+This project uses [DoltHub](https://www.dolthub.com/) to store and manage the data. Dolt is a SQL database that supports distributed version control. DoltHub is a place to share Dolt repositories. The data for this project is stored in a Dolt repository on DoltHub. You can find the repository [here](https://www.dolthub.com/repositories/actual_genius_intellectual/wikipedia-revisions).
+
 ## Features
 - **Revision Tracking**: Extracts and tracks Wikipedia article revisions over time.
 - **Contributor Identification**: Identifies users who have made contributions to each article.
