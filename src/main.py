@@ -3,10 +3,7 @@ import requests
 import sqlite3
 
 # Set up logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
-# Constants
-WIKI_API_URL = "https://en.wikipedia.org/w/api.php"
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Import page titles from list.py
 from list import PAGE_TITLES
@@ -22,28 +19,42 @@ cursor.execute('''
         minor BOOLEAN,
         size INTEGER,
         comment TEXT,
-        user TEXT
-    )
+        delta INTEGER,
+        user_id INTEGER,
+        username TEXT
+    );
 ''')
 conn.commit()
 logging.info("Database setup complete.")
 
 def get_revision_count(page_title):
     logging.debug(f"Fetching revision count for {page_title}.")
-    params = {
-        'action': 'query',
-        'format': 'json',
-        'titles': page_title,
-        'prop': 'revisions',
-        'rvprop': 'ids',
-        'rvlimit': '1'
-    }
-    response = requests.get(WIKI_API_URL, params=params)
-    data = response.json()
-    page_id = next(iter(data['query']['pages']))
-    revision_count = len(data['query']['pages'][page_id]['revisions'])
+
+    response = requests.get(f'https://en.wikipedia.org/w/rest.php/v1/page/{page_title}/history/counts/edits')
+    revision_count = response.json().get('count')
+
     logging.debug(f"Revision count for {page_title}: {revision_count}")
     return revision_count
+
+# Save revisions to the database
+def save_revisions(revisions, page_title):
+    for rev in revisions:
+        cursor.execute('''
+            INSERT OR IGNORE INTO revisions (id, page, timestamp, minor, size, comment, delta, user_id, username)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (
+            rev.get('id'),
+            page_title,
+            rev.get('timestamp'),
+            rev.get('minor'),
+            rev.get('size'),
+            rev.get('comment'),
+            rev.get('delta'),
+            rev.get('user').get('id'),
+            rev.get('user').get('name'),
+        ))
+    conn.commit()
+    logging.debug(f"{len(revisions)} revisions for {page_title} stored in the database.")
 
 def fetch_and_store_revisions():
     for page_title in PAGE_TITLES:
@@ -54,41 +65,20 @@ def fetch_and_store_revisions():
 
         if stored_revisions_count < api_revisions_count:
             logging.info(f'{page_title}. Stored: {stored_revisions_count} API: {api_revisions_count}. Fetching new revisions.')
-            params = {
-                'action': 'query',
-                'format': 'json',
-                'titles': page_title,
-                'prop': 'revisions',
-                'rvprop': 'ids|timestamp|size|flags|comment|user',
-                'rvlimit': '500'
-            }
 
-            while True:
-                response = requests.get(WIKI_API_URL, params=params)
+            api_url = f'https://en.wikipedia.org/w/rest.php/v1/page/{page_title}/history'
+            
+            response = requests.get(api_url)
+            data = response.json()
+            revisions = data.get('revisions')
+            save_revisions(revisions, page_title)
+
+            while 'older' in data:
+                response = requests.get(data['older'])
                 data = response.json()
-                page_id = next(iter(data['query']['pages']))
-                revisions = data['query']['pages'][page_id]['revisions']
+                revisions = data.get('revisions')
+                save_revisions(revisions, page_title)
 
-                for rev in revisions:
-                    cursor.execute('''
-                        INSERT OR IGNORE INTO revisions (id, page, timestamp, minor, size, comment, user)
-                        VALUES (?, ?, ?, ?, ?, ?, ?)
-                    ''', (
-                        rev['revid'],
-                        page_title,
-                        rev.get('timestamp'),
-                        'minor' in rev,
-                        rev.get('size'),
-                        rev.get('comment'),
-                        rev.get('user')
-                    ))
-                conn.commit()
-                logging.debug(f"Revisions for {page_title} stored in the database.")
-
-                if 'continue' in data:
-                    params['rvcontinue'] = data['continue']['rvcontinue']
-                else:
-                    break
             logging.info(f'All new revisions for {page_title} have been fetched and stored.')
         else:
             logging.debug(f'No new revisions to fetch for {page_title}.')
