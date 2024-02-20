@@ -489,6 +489,74 @@ SOCIAL_SERVICE2 = [
     'Street_cleaning'
 ]
 
+# List of high profile communists
+COMMUNISTS = [
+    "Karl_Marx",
+    "Vladimir_Lenin",
+    "Joseph_Stalin",
+    "Mao_Zedong",
+    "Fidel_Castro",
+    "Che_Guevara",
+    "Nikita_Khrushchev",
+    "Leon_Trotsky",
+    "Ho_Chi_Minh",
+    "Kim_Il-sung",
+    "Kim_Jong-il",
+    "Kim_Jong-un",
+    "Pol_Pot",
+    "Josip_Broz_Tito",
+    "Enver_Hoxha",
+    "Nikolai_Bukharin",
+    "Leonid_Brezhnev",
+    "Mikhail_Gorbachev",
+    "Klement_Gottwald",
+    "Walter_Ulbricht",
+    "Erich_Honecker",
+    "Erich_Mielke",
+    "Willy_Brandt",
+    "Egon_Krenz",
+    'Angela_Davis',
+    'Rosa_Luxemburg',
+    'Clara_Zetkin',
+    'Emma_Goldman',
+    'Louise_Michel',
+    'Lucy_Parsons',
+    'Marianne_Weber',
+    'Marie_Jeanne_Bassot',
+    'Marie_Louise_Giraud',
+    'Marie_Reine_Guindorf',
+    'Marie_Sophie_Schwartz',
+    'Marie_Therese_Fossey',
+    'Marie_Therese_Lihou',
+    'Marie_Therese_Morin',
+]
+
+# List of Critical Theorists
+CRITICAL_THEORISTS = [
+    'Max_Horkheimer',
+    'Theodor_Adorno',
+    'Herbert_Marcuse',
+    'Walter_Benjamin',
+    'Erich_Fromm',
+    'Friedrich_Pollock',
+    'Leo_Löwenthal',
+    'Jürgen_Habermas',
+    'Alfred_Schütz',
+    'Karl_Mannheim',
+    'Otto_Kirchheimer',
+    'Franz_Neumann',
+    'Hannah_Arendt',
+    'Paul_Lazarsfeld',
+    'Siegfried_Kracauer',
+    'Karl_Polanyi',
+    'Richard_Sorge',
+    'Wilhelm_Reich',
+    'Erich_Mielke',
+    'Erich_Honecker',
+    'Willy_Brandt',
+    'Egon_Krenz',
+    'Karl_Korsch'
+]
 
 
 # List of list of page titles
@@ -505,7 +573,9 @@ lists = [
     TYPES_OF_GOVERNMENT2,
     TYPES_OF_GOVERNMENT3,
     SOCIAL_SERVICE,
-    SOCIAL_SERVICE2
+    SOCIAL_SERVICE2,
+    COMMUNISTS,
+    CRITICAL_THEORISTS
 ]
 
 # Add the presidents to the list of page titles
