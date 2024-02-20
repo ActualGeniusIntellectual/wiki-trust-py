@@ -327,7 +327,7 @@ POLITICAL_IDEOLOGIES2 = [
     'Extremism',
     'Familialism',
     'Fanaticism',
-    'Fascism_Nazism',
+    'Nazism',
     'Federalism',
     'Feminism',
     'Fundamentalism',
@@ -436,6 +436,61 @@ TYPES_OF_GOVERNMENT2 = [
     'Tribalism'
 ]
 
+TYPES_OF_GOVERNMENT3 = [
+    'Agrarianism',
+    'Anarchism',
+    'Authoritarianism',
+    'Centrism',
+    'Christian_democracy',
+    'Collectivism',
+    'Communalism',
+    'Communitarianism',
+    'Conservatism',
+    'Constitutionalism',
+    'Corporatism',
+    'Distributism',
+    'Egalitarianism',
+    'Environmentalism',
+    'Extremism',
+    'Familialism',
+    'Fanaticism',
+    'Fascism',
+    'Feminism',
+    'Fundamentalism',
+    'Liberalism',
+    'Progressivism'
+]
+
+SOCIAL_SERVICE = [
+    'Socialism',
+    'Social_democracy',
+    'Social_anarchism',
+    'Social_credit',
+    'Social_liberalism',
+    'Social_market_economy',
+    'Social_republicanism',
+    'Socialism_with_Chinese_characteristics'
+]
+
+SOCIAL_SERVICE2 = [
+    'Social_insurance',
+    'Law_enforcement',
+    'Unemployment_benefits',
+    'National_healthcare',
+    'Public_education',
+    'Military',
+    'Espionage',
+    'Regulation:',
+    'Environmental_regulation',
+    'Banking_regulation',
+    'Food_inspection',
+    'Municipal:',
+    'Traffic_lights',
+    'Sanitation',
+    'Street_cleaning'
+]
+
+
 
 # List of list of page titles
 lists = [
@@ -448,7 +503,10 @@ lists = [
     POLITICAL_IDEOLOGIES,
     POLITICAL_IDEOLOGIES2,
     TYPES_OF_GOVERNMENT,
-    TYPES_OF_GOVERNMENT2
+    TYPES_OF_GOVERNMENT2,
+    TYPES_OF_GOVERNMENT3,
+    SOCIAL_SERVICE,
+    SOCIAL_SERVICE2
 ]
 
 # Add the presidents to the list of page titles
