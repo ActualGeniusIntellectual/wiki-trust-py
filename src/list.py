@@ -468,7 +468,6 @@ SOCIAL_SERVICE = [
     'Social_credit',
     'Social_liberalism',
     'Social_market_economy',
-    'Social_republicanism',
     'Socialism_with_Chinese_characteristics'
 ]
 
@@ -480,11 +479,11 @@ SOCIAL_SERVICE2 = [
     'Public_education',
     'Military',
     'Espionage',
-    'Regulation:',
+    'Regulation',
     'Environmental_regulation',
     'Banking_regulation',
     'Food_inspection',
-    'Municipal:',
+    'Municipal',
     'Traffic_lights',
     'Sanitation',
     'Street_cleaning'
