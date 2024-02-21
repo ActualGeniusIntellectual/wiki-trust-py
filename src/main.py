@@ -57,6 +57,10 @@ def get_revision_count(page_title):
     response = requests.get(f'https://en.wikipedia.org/w/rest.php/v1/page/{page_title}/history/counts/edits')
     revision_count = response.json().get('count')
 
+    if revision_count is None:
+        logging.error(f"Failed to fetch revision count for {page_title}.")
+        exit(1)
+
     logging.debug(f"Revision count for {page_title}: {revision_count}")
     return revision_count
 
