@@ -6,7 +6,7 @@ from typing import List, Tuple, Optional
 import datetime
 
 # Set up logging
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Import page titles from list.py
 from list import PAGE_TITLES
