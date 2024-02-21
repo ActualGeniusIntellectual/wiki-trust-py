@@ -556,6 +556,33 @@ CRITICAL_THEORISTS = [
     'Karl_Korsch'
 ]
 
+# List of woke terms
+WOKE_TERMS = [
+    'woke',
+    'cancel_culture',
+    'critical race theory',
+    'intersectionality',
+    'white_privilege',
+    'systemic_racism',
+    'microaggression',
+    'cultural_appropriation',
+    'safe_space',
+    'trigger_warning',
+    'social_justice',
+    'political_correctness',
+    'identity_politics',
+    'cultural_marxism',
+    'white_fragility',
+    'allyship',
+    'gaslighting',
+    'mansplaining',
+    'manspreading',
+    'toxic_masculinity',
+    'patriarchy',
+    'misogyny',
+    'misandry'
+]
+
 
 # List of list of page titles
 lists = [
