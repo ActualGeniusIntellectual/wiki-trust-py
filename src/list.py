@@ -629,7 +629,6 @@ COMMUNISTS = [
     'Marie_Louise_Giraud',
     'Marie_Reine_Guindorf',
     'Marie_Sophie_Schwartz',
-    'Marie_Therese_Fossey',
     'Marie_Therese_Morin',
 ]
 
