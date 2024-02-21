@@ -70,7 +70,7 @@ def get_stored_revision_count(page_title):
     return count
 
 # Save revisions to the database
-def save_revisions(revisions, page_title, count):
+def save_revisions(revisions, page_title):
     for rev in revisions:
         user_id = None
         username = None
@@ -96,13 +96,9 @@ def save_revisions(revisions, page_title, count):
             user_id,
             username,
         ))
-    
-    # Get stored revision count
-    stored_revision_count = get_stored_revision_count(page_title)
-
-    logging.info(f"{page_title}: {stored_revision_count}/{count}")
 
     conn.commit()
+
 
 def fetch_general(page_title, timestamp, key, key2, api_count):
     api_url = f'https://en.wikipedia.org/w/rest.php/v1/page/{page_title}/history'
@@ -111,15 +107,23 @@ def fetch_general(page_title, timestamp, key, key2, api_count):
         response = requests.get(api_url)
     else:
         response = requests.get(api_url, params={key: timestamp})
+    
     data = response.json()
     revisions = data.get('revisions')
-    save_revisions(revisions, page_title, api_count)
 
-    while key2 in data or len(revisions) == 0:
+    count = get_stored_revision_count(page_title)
+    save_revisions(revisions, page_title)
+    logging.info(f"{page_title}: {count}/{api_count}")
+    
+
+    while key2 in data and len(revisions) != 0 and count < api_count:
         response = requests.get(data[key2])
         data = response.json()
         revisions = data.get('revisions')
-        save_revisions(revisions, page_title, api_count)
+
+        count = get_stored_revision_count(page_title)
+        save_revisions(revisions, page_title)
+        logging.info(f"{page_title}: {count}/{api_count}")
 
 def fetch_old_revisions(page_title, oldest_stored_timestamp, api_count):
     fetch_general(page_title, oldest_stored_timestamp, 'older_than', 'older', api_count)
