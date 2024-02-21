@@ -670,7 +670,7 @@ WOKE_TERMS = [
     'systemic_racism',
     'microaggression',
     'cultural_appropriation',
-    'safe_space',
+    'Safe_space',
     'trigger_warning',
     'Social_justice',
     'political_correctness',
