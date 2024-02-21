@@ -40,7 +40,7 @@ This project is committed to ethical research practices and respects the privacy
 We welcome contributions from developers, researchers, and enthusiasts. Please read `CONTRIBUTING.md` for guidelines on how to submit contributions.
 
 ## License
-This project is licensed under the MIT License - see the `LICENSE` file for details.
+This project is licensed under the CC0 1.0 Universal License - see the `LICENSE` file for details.
 
 ## Acknowledgments
 - Wikipedia and the Wikimedia Foundation for providing open access to article revision data.
