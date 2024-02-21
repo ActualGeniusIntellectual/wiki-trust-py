@@ -163,18 +163,30 @@ def fetch_and_store_revision(cursor, page, api_count, oldest_stored_timestamp, n
         logging.info(f"Fetching all revisions for {page}.")
         fetch_all_revisions(cursor, page, api_count)
 
-def fetch(page_title: str) -> None:
+def fetch(page_title: str):
+    # Setup logging for each process
+    logging.basicConfig(level=logging.INFO, format='%(processName)s: %(message)s')
+
     logging.info(f"Fetching revisions for {page_title}.")
-    cursor = conn.cursor()
 
-    oldest_stored_timestamp = get_oldest_revision_timestamp(cursor, page_title)
-    newest_stored_timestamp = get_newest_revision_timestamp(cursor, page_title)
-    api_count = get_revision_count(page_title)
+    # Create a new database connection for each process
+    conn = sqlite3.connect('revisions.db')
 
-    fetch_and_store_revision(cursor, page_title, api_count, oldest_stored_timestamp, newest_stored_timestamp)
+    try:
+        cursor = conn.cursor()
 
+        oldest_stored_timestamp = get_oldest_revision_timestamp(cursor, page_title)
+        newest_stored_timestamp = get_newest_revision_timestamp(cursor, page_title)
+        api_count = get_revision_count(page_title)
+
+        fetch_and_store_revision(cursor, page_title, api_count, oldest_stored_timestamp, newest_stored_timestamp)
+    finally:
+        conn.close()
+
+
+def main():
+    with multiprocessing.Pool() as pool:
+        pool.map(fetch, PAGE_TITLES)
 
 if __name__ == '__main__':
-    for page_title in PAGE_TITLES:
-        fetch(page_title)
-    logging.info("Done")
+    main()
