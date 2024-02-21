@@ -36,6 +36,7 @@ cursor.execute('''
 conn.commit()
 logging.info("Database setup complete.")
 cursor.close()
+conn.close()
 
 
 def get_most_revision_timestamp(cursor, page_title, op) -> Optional[int]:
