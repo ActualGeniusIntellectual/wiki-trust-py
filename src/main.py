@@ -144,13 +144,13 @@ def fetch_and_store_revision(page, api_count, oldest_stored_timestamp, newest_st
         fetch_old_revisions(page, oldest_stored_timestamp, api_count)
 
     # Fetch revisions newer than the newest stored revision
-    elif newest_stored_timestamp:
+    if newest_stored_timestamp:
         # Debugging
         logging.info(f"Fetching revisions newer than {newest_stored_timestamp} for {page}.")
         fetch_new_revisions(page, newest_stored_timestamp, api_count)
 
     # Otherwise, fetch all revisions, newest to oldest
-    else:
+    if not oldest_stored_timestamp and not newest_stored_timestamp:
         # Debugging
         logging.info(f"Fetching all revisions for {page}.")
         fetch_all_revisions(page, api_count)
