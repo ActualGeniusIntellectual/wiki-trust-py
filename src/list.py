@@ -600,7 +600,8 @@ lists = [
     SOCIAL_SERVICE,
     SOCIAL_SERVICE2,
     COMMUNISTS,
-    CRITICAL_THEORISTS
+    CRITICAL_THEORISTS,
+    WOKE_TERMS
 ]
 
 # Add the presidents to the list of page titles
