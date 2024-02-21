@@ -33,14 +33,14 @@ logging.info("Database setup complete.")
 def get_most_revision_timestamp(page_title, op) -> Optional[int]:
     result = cursor.execute(f'SELECT {op}(timestamp) FROM revisions WHERE page = ?', (page_title,)).fetchone()
     if result[0]:
-        logging.debug(f"{op} revision timestamp for {page_title}: {result[0]}")
+        logging.info(f"{op} revision timestamp for {page_title}: {result[0]}")
         # Convert timestamp to datetime object
         obj = datetime.datetime.strptime(result[0], '%Y-%m-%dT%H:%M:%SZ')
 
         # Convert datetime object to unix timestamp
         return int(obj.timestamp())
     else:
-        logging.debug(f"No {op} revisions found for {page_title}.")
+        logging.info(f"No {op} revisions found for {page_title}.")
         return None
 
 # src/main.py
@@ -115,7 +115,7 @@ def fetch_general(page_title, timestamp, key, key2, api_count):
     revisions = data.get('revisions')
     save_revisions(revisions, page_title, api_count)
 
-    while key2 in data:
+    while key2 in data or len(revisions) == 0:
         response = requests.get(data[key2])
         data = response.json()
         revisions = data.get('revisions')
@@ -135,14 +135,20 @@ def fetch_new_revisions(page_title, newest_stored_timestamp, api_count):
 def fetch_and_store_revision(page, api_count, oldest_stored_timestamp, newest_stored_timestamp):
     # Fetch revisions older than the oldest stored revision
     if oldest_stored_timestamp:
+        # Debugging
+        logging.info(f"Fetching revisions older than {oldest_stored_timestamp} for {page}.")
         fetch_old_revisions(page, oldest_stored_timestamp, api_count)
 
     # Fetch revisions newer than the newest stored revision
     elif newest_stored_timestamp:
+        # Debugging
+        logging.info(f"Fetching revisions newer than {newest_stored_timestamp} for {page}.")
         fetch_new_revisions(page, newest_stored_timestamp, api_count)
 
     # Otherwise, fetch all revisions, newest to oldest
     else:
+        # Debugging
+        logging.info(f"Fetching all revisions for {page}.")
         fetch_all_revisions(page, api_count)
 
 def fetch(page_title):
