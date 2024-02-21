@@ -4,6 +4,7 @@ import sqlite3
 import typing
 from typing import List, Tuple, Optional
 import datetime
+import multiprocessing
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
