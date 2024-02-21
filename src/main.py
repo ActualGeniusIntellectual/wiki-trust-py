@@ -6,7 +6,7 @@ from typing import List, Tuple, Optional
 import datetime
 
 # Set up logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Import page titles from list.py
 from list import PAGE_TITLES
@@ -32,7 +32,7 @@ logging.info("Database setup complete.")
 
 def get_most_revision_timestamp(page_title, op) -> Optional[int]:
     result = cursor.execute(f'SELECT {op}(timestamp) FROM revisions WHERE page = ?', (page_title,)).fetchone()
-    if result:
+    if result[0]:
         logging.debug(f"{op} revision timestamp for {page_title}: {result[0]}")
         # Convert timestamp to datetime object
         obj = datetime.datetime.strptime(result[0], '%Y-%m-%dT%H:%M:%SZ')
@@ -40,7 +40,7 @@ def get_most_revision_timestamp(page_title, op) -> Optional[int]:
         # Convert datetime object to unix timestamp
         return int(obj.timestamp())
     else:
-        logging.debug(f"No revisions found for {page_title}.")
+        logging.debug(f"No {op} revisions found for {page_title}.")
         return None
 
 # src/main.py
@@ -63,7 +63,6 @@ def get_revision_count(page_title):
 def get_stored_revision_count(page_title):
     result = cursor.execute('SELECT COUNT(*) FROM revisions WHERE page = ?', (page_title,)).fetchone()
     count = result[0]
-    logging.debug(f"Stored revision count for {page_title}: {count}")
     return count
 
 # Save revisions to the database
@@ -101,10 +100,10 @@ def save_revisions(revisions, page_title, count):
 
     conn.commit()
 
-def fetch_general(page_title, timestamp, key, key2, api_count, all=False):
+def fetch_general(page_title, timestamp, key, key2, api_count):
     api_url = f'https://en.wikipedia.org/w/rest.php/v1/page/{page_title}/history'
 
-    if all:
+    if timestamp:
         response = requests.get(api_url)
     else:
         response = requests.get(api_url, params={key: timestamp})
@@ -123,7 +122,7 @@ def fetch_old_revisions(page_title, oldest_stored_timestamp, api_count):
 
 # Keep fetching revisions until we have all of them
 def fetch_all_revisions(page_title, api_count):
-    fetch_general(page_title, 'older_than', 'older', api_count, True)
+    fetch_general(page_title, None, 'older_than', 'older', api_count)
 
 
 def fetch_new_revisions(page_title, newest_stored_timestamp, api_count):
@@ -140,7 +139,7 @@ def fetch_and_store_revision(page, api_count, oldest_stored_timestamp, newest_st
 
     # Otherwise, fetch all revisions, newest to oldest
     else:
-        fetch_all_revisions(page, api_count, api_count)
+        fetch_all_revisions(page, api_count)
 
 def fetch(page_title):
         oldest_stored_timestamp = get_oldest_revision_timestamp(page_title)
