@@ -522,7 +522,6 @@ COMMUNISTS = [
     'Louise_Michel',
     'Lucy_Parsons',
     'Marianne_Weber',
-    'Marie_Jeanne_Bassot',
     'Marie_Louise_Giraud',
     'Marie_Reine_Guindorf',
     'Marie_Sophie_Schwartz',
