@@ -686,6 +686,28 @@ WOKE_TERMS = [
     'Misandry'
 ]
 
+# List of fascist leaders with space converted to underscore
+FASCISTS = [
+    "Benito_Mussolini",
+    "Adolf_Hitler",
+    "Francisco_Franco",
+    "Ante_Pavelić",
+    "Ion_Antonescu",
+    "Corneliu_Zelea_Codreanu",
+    "Dimitrije_Ljotić",
+    "Vidkun_Quisling",
+    "Pierre_Laval",
+    "Philippe_Pétain",
+    "Emilio_Mola",
+    "José_María_Gil-Robles",
+    "Francisco_José_Franco",
+    "Carlos_Arias_Navarro",
+    "Jorge_Montes",
+    "Luis_Carrero_Blanco",
+    "Rodrigo_Rato",
+    "Oswald_Mosley"
+]
+
 
 # List of list of page titles
 lists = [
@@ -704,7 +726,8 @@ lists = [
     SOCIAL_SERVICE2,
     COMMUNISTS,
     CRITICAL_THEORISTS,
-    WOKE_TERMS
+    WOKE_TERMS,
+    FASCISTS
 ]
 
 # Add the presidents to the list of page titles
