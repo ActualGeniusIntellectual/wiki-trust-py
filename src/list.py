@@ -627,7 +627,6 @@ COMMUNISTS = [
     'Lucy_Parsons',
     'Marianne_Weber',
     'Marie_Sophie_Schwartz',
-    'Marie_Therese_Morin',
 ]
 
 # List of Critical Theorists
