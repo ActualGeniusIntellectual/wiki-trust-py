@@ -527,7 +527,7 @@ TYPES_OF_GOVERNMENT2 = [
     'Kleptocracy',
     'Logocracy',
     'Meritocracy',
-    'Military Dictatorship',
+    'Military_dictatorship',
     'Monarchy',
     'Oligarchy',
     'Plutocracy',
@@ -626,8 +626,6 @@ COMMUNISTS = [
     'Louise_Michel',
     'Lucy_Parsons',
     'Marianne_Weber',
-    'Marie_Louise_Giraud',
-    'Marie_Reine_Guindorf',
     'Marie_Sophie_Schwartz',
     'Marie_Therese_Morin',
 ]
@@ -663,7 +661,7 @@ CRITICAL_THEORISTS = [
 WOKE_TERMS = [
     'Woke',
     'Cancel_culture',
-    'Critical race theory',
+    'Critical_race_theory',
     'Intersectionality',
     'White_privilege',
     'Systemic_racism',
@@ -700,9 +698,7 @@ FASCISTS = [
     "Philippe_Pétain",
     "Emilio_Mola",
     "José_María_Gil-Robles",
-    "Francisco_José_Franco",
     "Carlos_Arias_Navarro",
-    "Jorge_Montes",
     "Luis_Carrero_Blanco",
     "Rodrigo_Rato",
     "Oswald_Mosley"
