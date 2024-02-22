@@ -2,10 +2,8 @@ import atexit
 import logging
 import requests
 import sqlite3
-import typing
 from typing import List, Tuple, Optional
 import datetime
-import multiprocessing
 
 
 # Set up logging
@@ -13,9 +11,6 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 # Import page titles from list.py
 from list import PAGE_TITLES
-
-# Parallel processing
-pool = multiprocessing.Pool(1)
 
 # Database setup
 def init_db():
@@ -163,27 +158,27 @@ def fetch_and_store_revision(cursor, page, api_count, oldest_stored_timestamp, n
         logging.info(f"Fetching all revisions for {page}.")
         fetch_all_revisions(cursor, page, api_count)
 
+
+
 def fetch(page_title: str):
     logging.info(f"Fetching revisions for {page_title}.")
 
-    # Create a new database connection for each process
     conn = sqlite3.connect('revisions.db')
+    atexit.register(conn.close)
+    cursor = conn.cursor()
 
-    try:
-        cursor = conn.cursor()
+    oldest_stored_timestamp = get_oldest_revision_timestamp(cursor, page_title)
+    newest_stored_timestamp = get_newest_revision_timestamp(cursor, page_title)
+    api_count = get_revision_count(page_title)
 
-        oldest_stored_timestamp = get_oldest_revision_timestamp(cursor, page_title)
-        newest_stored_timestamp = get_newest_revision_timestamp(cursor, page_title)
-        api_count = get_revision_count(page_title)
-
-        fetch_and_store_revision(cursor, page_title, api_count, oldest_stored_timestamp, newest_stored_timestamp)
-    finally:
-        conn.close()
+    fetch_and_store_revision(cursor, page_title, api_count, oldest_stored_timestamp, newest_stored_timestamp)
 
 
 def main():
-    with multiprocessing.Pool() as pool:
-        pool.map(fetch, PAGE_TITLES)
+    for page in PAGE_TITLES:
+        fetch(page)
+
+    logging.info("All revisions fetched.")
 
 if __name__ == '__main__':
     init_db()
