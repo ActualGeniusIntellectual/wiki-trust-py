@@ -13,8 +13,7 @@ conn = sqlite3.connect('revisions.db')
 cursor = conn.cursor()
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS content (
-        id INTEGER PRIMARY KEY,
-        revision_id INTEGER UNIQUE,
+        revision_id INTEGER PRIMARY KEY,
         content TEXT,
         FOREIGN KEY(revision_id) REFERENCES revisions(id)
     )
