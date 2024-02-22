@@ -18,25 +18,26 @@ from list import PAGE_TITLES
 pool = multiprocessing.Pool(1)
 
 # Database setup
-conn = sqlite3.connect('revisions.db')
-cursor = conn.cursor()
-cursor.execute('''
-    CREATE TABLE IF NOT EXISTS revisions (
-        id INTEGER PRIMARY KEY,
-        page TEXT,
-        timestamp TIMESTAMP,
-        minor BOOLEAN,
-        size INTEGER,
-        comment TEXT,
-        delta INTEGER,
-        user_id INTEGER,
-        username TEXT
-    );
-''')
-conn.commit()
-logging.info("Database setup complete.")
-cursor.close()
-conn.close()
+def init_db():
+    conn = sqlite3.connect('revisions.db')
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS revisions (
+            id INTEGER PRIMARY KEY,
+            page TEXT,
+            timestamp TIMESTAMP,
+            minor BOOLEAN,
+            size INTEGER,
+            comment TEXT,
+            delta INTEGER,
+            user_id INTEGER,
+            username TEXT
+        );
+    ''')
+    conn.commit()
+    logging.info("Database setup complete.")
+    cursor.close()
+    conn.close()
 
 
 def get_most_revision_timestamp(cursor, page_title, op) -> Optional[int]:
@@ -106,8 +107,6 @@ def save_revisions(cursor, revisions, page_title):
             username,
         ))
 
-    conn.commit()
-
 
 def fetch_general(cursor, page_title, timestamp, key, key2, api_count):
     api_url = f'https://en.wikipedia.org/w/rest.php/v1/page/{page_title}/history'
@@ -165,9 +164,6 @@ def fetch_and_store_revision(cursor, page, api_count, oldest_stored_timestamp, n
         fetch_all_revisions(cursor, page, api_count)
 
 def fetch(page_title: str):
-    # Setup logging for each process
-    logging.basicConfig(level=logging.INFO, format='%(processName)s: %(message)s')
-
     logging.info(f"Fetching revisions for {page_title}.")
 
     # Create a new database connection for each process
@@ -190,4 +186,5 @@ def main():
         pool.map(fetch, PAGE_TITLES)
 
 if __name__ == '__main__':
+    init_db()
     main()
